@@ -426,6 +426,7 @@
             orientation="horizontal" 
             :icon="form.deposited ? 'check_circle' : 'check_circle'" 
             :icon-color="form.deposited ? 'positive' : 'grey'"
+            clearable
             >
             <q-select
             :options="options.workers.map(w => {return {label: w.full_name, value: w.id}})"
