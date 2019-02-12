@@ -424,8 +424,8 @@
             label="Принял на ответственное хранение:" 
             label-width="5" 
             orientation="horizontal" 
-            :icon="form.deposited ? 'check_circle' : 'error'" 
-            :icon-color="form.deposited ? 'positive' : 'negative'"
+            :icon="form.deposited ? 'check_circle' : 'check_circle'" 
+            :icon-color="form.deposited ? 'positive' : 'grey'"
             >
             <q-select
             :options="options.workers.map(w => {return {label: w.full_name, value: w.id}})"
