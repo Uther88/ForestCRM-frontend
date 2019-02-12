@@ -14,8 +14,12 @@
         </q-toolbar-title>
         <q-btn icon="reply" flat color="white" class="q-mx-xs" @click="$router.go(-1)" title="Входящие" />
       </q-toolbar>
-      <div class="full-width round-borders scroll-y bg-white" style="height: 55vh;" id="messagesList" ref="messagesList">
-        <transition-group enter-active-class="animated bounceInDown">
+      <div
+       class="full-width round-borders scroll-y bg-white" 
+       style="height: 55vh;" 
+       id="messagesList" 
+       ref="messagesList">
+       	<template v-if="chat_messages.length">
           <q-chat-message
             v-for="message in chat_messages"
             :sent="message.sender.id == $user.id"
@@ -34,22 +38,24 @@
             class="float-right" style="bottom: 0;"
             />
           </q-chat-message>
-        </transition-group>
-            <q-scroll-observable @scroll="getMoreMessages"/>
-            <q-resize-observable @resize="scrollTo" :debounce="500" />
+          </template>
+          <div v-else class="fit flex flex-center">
+          	<q-spinner-hourglass size="30px" color="primary" />
+          </div>
+          <q-scroll-observable @scroll="getMoreMessages" />
 			</div>
       <div class="full-width row q-py-xs bg-indigo items-center">
         <div class="col-10">
           <q-input 
-          hide-underline
-          type="textarea" 
-          class="q-pa-sm bg-white" 
-          style="border: 1px solid lightgrey; border-radius: 3px;" 
-          clearable 
-          max-length="200"
-          rows="1"
-          v-model="form.text" 
-          placeholder="Введите сообщение" 
+	          hide-underline
+	          type="textarea" 
+	          class="q-pa-sm bg-white" 
+	          style="border: 1px solid lightgrey; border-radius: 3px;" 
+	          clearable 
+	          max-length="200"
+	          rows="1"
+	          v-model="form.text" 
+	          placeholder="Введите сообщение" 
           />
         </div>
         <div class="col text-center">
@@ -73,9 +79,6 @@
            @remove:cancel="removeFile"
           />
       </div>
-      <q-inner-loading :visible="loading" dark>
-      <q-spinner-hourglass size="50px" color="primary"></q-spinner-hourglass>
-    </q-inner-loading>
     </div>
   </div>
 </template>
@@ -176,21 +179,17 @@ export default {
     getMoreMessages: debounce(function(pos) {
       if (this.more_messages && pos.direction == 'up' ) {
         this.getMessages();
-      }
-    }, 500),
-    // Debounce scroll messages list
-    scrollTo : debounce(function(pos){
-      if (pos == 'down') {
-        this.$refs['messagesList'].scroll({top: 0});
-      } else {
-        this.$refs['messagesList'].scrollTop = this.$refs['messagesList'].scrollHeight;
-      }
+      } 
     }, 1000),
+    // Debounce scroll messages list
+    scrollTo: debounce(function(pos) {
+        this.$refs['messagesList'].scrollTop = this.$refs['messagesList'].scrollHeight;
+    }, 500), 
     parseDate(date) {
       if (new Date(date).toDateString() == new Date().toDateString()) {
         return 'Сегодня, ' + new Date(date).toLocaleTimeString();
       }
-      return new Date(date).toLocaleDateString();
+      return new Date(date).toLocaleString();
     },
     // Handle message text to view in chat
     handleMessageText(text, files) {
@@ -242,7 +241,7 @@ export default {
       })
     },
     // HTTP-GET chat messages
-    getMessages() {
+    getMessages(start) {
       this.loading = true;
       const params = {limit: 10, chats: this.id};
       this.$axios.get(this.more_messages || '/api/v1/messages/', { params })
@@ -253,6 +252,9 @@ export default {
         this.$handleError(e);
       }).finally(() => {
         this.loading = false;
+        if (start) {
+        	this.$refs['messagesList'].scrollTop = this.$refs['messagesList'].scrollHeight;
+        }
       })
     },
     // HTTP-GET new incoming messages
@@ -275,11 +277,11 @@ export default {
     // Set interval for new messages checker
     this.newMessagesCheker = setInterval(this.getNewMessages, 1000 * 10);
     this.outMessagesChecker = setInterval(this.checkOutcomming, 1000 * 5);
-    this.getChat();
-    this.getMessages();
   },
   mounted: function() {
     // Launch chat and messages getters on mounted
+    this.getChat();
+    this.getMessages(true);
 
   },
   destroyed: function() {

@@ -420,10 +420,10 @@
       <q-modal
        v-model="showTaskdialog" 
        no-backdrop-dismiss 
-       content-classes="flex column justify-between no-wrap" 
+       content-classes="flex col-5 justify-center" 
        content-css="max-height: 100%;" 
        @hide="clearTaskForm">
-        <q-toolbar align="center" color="indigo" glossy>
+        <q-toolbar align="center" color="indigo" glossy class="self-start">
           <q-toolbar-title>Задание для водителя</q-toolbar-title>
           <q-btn 
             icon="close" 
@@ -431,21 +431,20 @@
             v-close-overlay 
           />
         </q-toolbar>
-        <div class="q-pa-sm">
-          <form>
-          <q-field label="Пункт отправления" label-width="6">
+        <div class="q-pa-sm full-width">
+          <q-field label="Пункт отправления" label-width="4">
             <q-input
              type="text" 
              v-model="taskForm.from_dest" 
             />
           </q-field>
-          <q-field label="Пункт назначения" label-width="6">
+          <q-field label="Пункт назначения" label-width="4">
             <q-input
              type="text"
              v-model="taskForm.to_dest" 
             />
           </q-field>
-          <q-field label="Выезд" label-width="5">
+          <q-field label="Выезд" label-width="4">
             <q-datetime
              type="datetime" 
              modal 
@@ -455,7 +454,7 @@
              :max="taskForm.arrival" 
             />
           </q-field>
-          <q-field label="Прибытие" label-width="5">
+          <q-field label="Прибытие" label-width="4">
             <q-datetime
              type="datetime" 
              modal 
@@ -465,27 +464,27 @@
              format="DD.MM.YYYY, HH:mm" 
             />
           </q-field>
-          <q-field label="Расстояние" label-width="6">
+          <q-field label="Расстояние" label-width="4">
             <q-input
              type="number" 
              v-model.number="taskForm.distance" 
              @input="calcTotalFuel" 
             />
           </q-field>
-          <q-field label="Вид работы" label-width="6">
+          <q-field label="Вид работы" label-width="4">
             <q-input
              type="text" 
              v-model="taskForm.kind" 
             />
           </q-field>
-          <q-field label="Условия" label-width="6">
+          <q-field label="Условия" label-width="4">
             <q-select
              :options="options.conditions" 
              v-model="taskForm.conditions" 
              @input="calcTotalFuel" 
             />
           </q-field>
-          <q-field label="Итого топлива" label-width="6" class="text-bold q-pa-sm" orientation="horizontal">
+          <q-field label="Итого топлива" label-width="4" class="text-bold q-pa-sm" orientation="horizontal">
             <q-input
              type="text" 
              align="center" 
@@ -496,9 +495,8 @@
              style="width: 70px; margin: auto;" 
              />
           </q-field>
-        </form>
         </div>
-        <q-toolbar class="justify-around" color="indigo" glossy>
+        <q-toolbar class="justify-around self-end" color="indigo" glossy>
           <q-btn
              icon="save" 
              label="Сохранить" 
@@ -640,26 +638,6 @@ export default {
     },
   	// Check for valid complete form and save waybill
     saveWaybill() {
-      if (this.instance && this.instance.is_completed) {
-        return this.$router.go(-1);
-      }
-      if (this.is_valid) {
-        const form = JSON.stringify(this.form);
-        const id = this.instance ? this.instance.id + '/' : '';
-        this.$axios.post('/api/v1/waybill/' + id, form)
-        .then(response => {
-          if (this.form.is_completed) {
-            this.done(response.data.id);
-          } else {
-            this.$router.push({name: 'WaybillList'});
-          }
-        })
-        .catch(e => {
-          this.$handleError(e);
-        })
-      }
-    },
-    saveWaybil() {
       if (this.instance && this.instance.is_completed) {
         return this.$router.go(-1);
       }

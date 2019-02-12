@@ -990,7 +990,7 @@ export default {
            ],
            personal: [
              'brigadier', 'issued', 'accepted','work_passed',
-             'work_accept', 'responsible', 'calculated', 'deposited',
+             'work_accept', 'responsible', 'calculated',
            ]
        },
        // Dialogs
