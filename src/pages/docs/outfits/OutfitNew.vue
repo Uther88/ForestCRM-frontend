@@ -501,10 +501,10 @@
               />
             </q-field>
             <q-field label="Нормы выработки:">
-              <q-input type="number" :decimals="1" :step="0.1" :min="0" v-model="work_form.rate" />
+              <q-input type="number" :step="0.1" :min="0" v-model="work_form.rate" />
             </q-field>
             <q-field label="Выполнено:">
-              <q-input type="number" :decimals="1" :step="0.1" :min="0" v-model="work_form.done" :readonly="!work_form.rate"/>
+              <q-input type="number" :step="0.1" :min="0" v-model="work_form.done" :readonly="!work_form.rate"/>
             </q-field>
             <q-field label="Параграф:">
               <q-input type="text" v-model="work_form.paragraph" />
@@ -513,7 +513,7 @@
               <q-input type="number" :decimals="2" :step="0.1" :min="0" v-model="work_form.pricing" />
             </q-field>
             <q-field label="Отработано:">
-              <q-input type="number" :decimals="1" :step="0.1" :min="0" v-model="work_form.man_days" float-label="Человеко-дней" />
+              <q-input type="number" :step="0.1" :min="0" v-model="work_form.man_days" float-label="Человеко-дней" />
               <q-input type="number" :step="0.1" :min="0" v-model="work_form.auto_days" float-label="Машино-смен" />
               <q-input type="number" :step="0.1" :min="0" v-model="work_form.days" float-label="Дней"/>
             </q-field>

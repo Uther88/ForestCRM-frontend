@@ -312,9 +312,13 @@
                     <span class="col-auto q-px-sm text-center dat bor-bot relative-position q-mx-xs">
                     {{new Date(outfit.date).toLocaleDateString()}}
                   </span>
-                    <span class="col-auto q-px-sm text-center pos bor-bot relative-position q-mx-xs">{{outfit.deposited.position}}</span>
+                    <span class="col-auto q-px-sm text-center pos bor-bot relative-position q-mx-xs">
+                      {{ outfit.deposited ? outfit.deposited.position : ' ' }}
+                    </span>
                     <span class="col-2 sign text-center bor-bot relative-position q-mx-xs"></span>
-                    <span class="col text-center sign-trans relative-position bor-bot">{{outfit.deposited.full_name}}</span>
+                    <span class="col text-center sign-trans relative-position bor-bot">
+                      {{ outfit.deposited ? outfit.deposited.full_name : ' ' }}
+                    </span>
                 </p>
             </div>      
             <div class="col-4 q-pa-sm">
