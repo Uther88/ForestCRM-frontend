@@ -642,7 +642,7 @@ export default {
         return this.$router.go(-1);
       }
       if (this.is_valid) {
-        const form = JSON.stringify(this.form);
+        const form = JSON.parse(JSON.stringify(this.form));
         // If edit exists waybill
         if (this.instance) {
           this.$axios.put('/api/v1/waybill/' + this.instance.id + '/', form)
