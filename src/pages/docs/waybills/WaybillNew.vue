@@ -657,7 +657,7 @@ export default {
           })
         } else {
           // If new waybill
-          this.axios.post('/api/v1/waybill/', form)
+          this.$axios.post('/api/v1/waybill/', form)
           .then(response => {
             if (this.form.is_completed) {
               this.done(response.data.id);
