@@ -104,7 +104,7 @@ export default {
     	}).then(() => {
     		this.$axios.delete(waybill.resource_uri)
     		.then(response => {
-    			this.waybills = this.waybills.filter(wb => wb.id != response.data.id);
+    			this.waybills = this.waybills.filter(wb => wb.id !== waybill.id);
     		}).catch(e => {
     			this.$handleError(e);
     		})
