@@ -139,7 +139,7 @@
 						<td></td>
 					</tr>
 					<template v-if="act.outfit.works.length < 10">
-						<tr v-for="i in (10 - act.outfit.works.length)">
+						<tr v-for="i in (act.outfit.expenses.length - act.outfit.works.length)">
 							<td v-for="i in 3">&nbsp;</td>
 						</tr>
 					</template>
@@ -213,7 +213,7 @@
 <style>
 	body #act{
 	  background: rgb(204,204,204); 
-	  font:  14px Times New Roman, serif;
+	  font:  12px Times New Roman, serif;
 	  height: 100%;
 	}
 
@@ -224,11 +224,9 @@
 	  padding: 1cm;
 	  margin-bottom: 0.5cm;
 	  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+	  width: 29.7cm;
+  	min-height: 21cm; 
   
-}
-.page {  
- 	width: 29.7cm;
-  	height: 21cm; 
 }
 
 @media print {
@@ -239,7 +237,8 @@
   }
 }
   @page {
-  	margin: -1px;
+  	margin: 0 1cm;
+  	padding: 0;
   	size: A4 landscape;
   	
   }

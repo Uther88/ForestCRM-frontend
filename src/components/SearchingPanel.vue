@@ -3,7 +3,7 @@
 			<q-modal
 				v-model="showSearchDialog"
 				v-if="showSearchDialog"
-				content-css="min-width: 30vw; max-height: 100%;"
+				content-css="min-width: 40vw; min-height: 35vh; max-height: 100%;"
 				content-classes="flex column justify-between"
 				@hide="clearForm"
 			>
@@ -14,10 +14,10 @@
 					<q-btn flat v-close-overlay icon="close" />
 				</q-toolbar>
 				<div class="q-px-sm">
-					<q-field label="Номер" v-if="options.some(o => o.type == 'number')">
+					<q-field label="Номер" v-if="options.some(o => o.type == 'number')" label-width="3">
 						<q-input clearable type="number" v-model="form.number" />
 					</q-field>
-					<q-field label="Дата" v-if="options.some(o => o.type == 'date')">
+					<q-field label="Дата" v-if="options.some(o => o.type == 'date')" label-width="3">
 						<q-datetime 
 						clearable 
 						type="date" 
@@ -25,7 +25,7 @@
 						@input="val => {val ? form.date = new Date(val).toLocaleDateString('EU') : form.date = null}"
 						format="DD.MM.YYYY" />
 					</q-field>
-					<q-field label="Период" v-if="options.some(o => o.type == 'month')">
+					<q-field label="Период" v-if="options.some(o => o.type == 'month')" label-width="3">
 						<q-datetime 
 						clearable 
 						type="date" 
@@ -35,38 +35,38 @@
 						modal
 						default-view="month" />
 					</q-field>
-					<q-field label="Участок" v-if="options.some(o => o.type == 'station')">
+					<q-field label="Участок" v-if="options.some(o => o.type == 'station')" label-width="3">
 						<q-select 
 						:options="stations.map(s => {return {label: s.name, value: s.id}})" 
 						separator 
 						clearable
 						v-model="form.station" />
 					</q-field>
-					<q-field label="Отдел" v-if="options.some(o => o.type == 'departament')">
+					<q-field label="Отдел" v-if="options.some(o => o.type == 'departament')" label-width="3">
 						<q-select :options="$store.state.main.departaments" clearable separator v-model="form.departament" />
 					</q-field>
-					<q-field label="Вид работ" v-if="options.some(o => o.type == 'event')">
+					<q-field label="Вид работ" v-if="options.some(o => o.type == 'event')" label-width="3">
 						<q-select 
 						:options="events.map(e => {return {label: e.full_name, value: e.id}})"
 						separator
 						clearable
 						v-model="form.event" />
 					</q-field>
-					<q-field label="Работник" v-if="options.some(o => o.type == 'worker')">
+					<q-field label="Работник" v-if="options.some(o => o.type == 'worker')" label-width="3">
 						<q-select 
 						:options="workers.map(w => {return {label: w.full_name, value: w.id}})" 
 						separator
 						clearable
 						v-model="form.worker" />
 					</q-field>
-					<q-field label="Автомобиль" v-if="options.some(o => o.type == 'car')">
+					<q-field label="Автомобиль" v-if="options.some(o => o.type == 'car')" label-width="3">
 						<q-select 
 						:options="cars.map(c => {return {label: c.full_name, value: c.id}})" 
 						separator 
 						clearable
 						v-model="form.car" />
 					</q-field>
-					<q-field label="Тип" v-if="options.some(o => o.type == 'kind')">
+					<q-field label="Тип" v-if="options.some(o => o.type == 'kind')" label-width="3">
 						<q-select 
 						:options="$store.state.main.fd_kinds" 
 						separator 

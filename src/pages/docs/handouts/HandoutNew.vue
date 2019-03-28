@@ -129,7 +129,7 @@
 			},
 			// HTTP-GET cars
 			getCars() {
-				var params = {kind__in: 'H,L' };
+				var params = {kind__in: 'H,L,T' };
 				this.$axios.get('/api/v1/car/', { params })
 				.then(response => {
 					this.options.cars = response.data.cars;
@@ -145,7 +145,7 @@
 					this.options.waybills = [];
 					const params = {
 						station: this.form.station,
-						driver: this.form.worker,
+						//driver: this.form.worker,
 						date__month: new Date(this.form.date).getMonth() + 1,
 						car: this.form.car,
 						fuel_issued__gt: 0,
