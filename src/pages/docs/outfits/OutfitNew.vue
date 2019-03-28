@@ -256,7 +256,7 @@
               <span class="col text-center q-pa-sm">Расход материалов</span>
             </div>
             <q-td slot="body-cell-options" slot-scope="props" :props="props">
-              <q-btn-dropdown icon="menu" dense color="primary" glossy>
+              <q-btn-dropdown icon="menu" dense color="primary" glossy split>
                 <q-list link separator>
                     <q-item @click.native="editObject(props.row, 'expense_form')">
                       <q-item-side icon="edit" color="primary" />
@@ -295,7 +295,7 @@
               <span class="col text-center q-pa-sm">Приход материалов</span>
             </div>
             <q-td slot="body-cell-options" slot-scope="props" :props="props">
-              <q-btn-dropdown icon="menu" dense color="primary" glossy>
+              <q-btn-dropdown icon="menu" dense color="primary" glossy split>
                 <q-list link separator>
                     <q-item @click.native="editObject(props.row, 'posting_form')">
                       <q-item-side icon="edit" color="primary" />
@@ -1007,7 +1007,7 @@ export default {
        columns: {
          works: [
            {name: 'options', label: 'Опции', align: 'center'},
-           {name: 'name', label: 'Наименование', field: 'name', align: 'center'},
+           {name: 'name', label: 'Наименование', field: 'name', align: 'left'},
            {name: 'units', label: 'Ед. изм.', 
             field: work => 
             this.$store.state.main.units.find(u => u.id == work.units).short, align: 'center'
@@ -1028,19 +1028,21 @@ export default {
             name: 'material', 
             label: 'Материал', 
             field: ex => this.options.materials.find(m => m.id == ex.material).name, 
-            align: 'center'
+            align: 'left', style: 'white-space: pre-wrap'
             },
            {name: 'units', label: 'Ед. изм.', 
             field: ex => this.options.materials.find(m => m.id == ex.material).units.short, align: 'center'
             },
            {name: 'quantity_norm', label: 'По норме', field: 'quantity_norm', align: 'center'},
            {name: 'quantity_fact', label: 'По факту', field: 'quantity_fact', align: 'center'},
-           {name: 'cost', label: 'Стоимость, руб.', field: 'cost', align: 'center'},
+           //{name: 'cost', label: 'Стоимость, руб.', field: 'cost', align: 'center'},
          ],
          postings: [
            {name: 'options', label: 'Опции', align: 'center'},
            {name: 'material', label: 'Материал', 
-            field: pst => this.options.materials.find(m => m.id == pst.material).name, align: 'center'
+            field: pst => this.options.materials.find(m => m.id == pst.material).name, 
+            align: 'left', 
+            style: "white-space: pre-wrap"
           },
            {name: 'units', label: 'Ед. изм.', 
            field: pst => this.options.materials.find(m => m.id == pst.material).units.short, align: 'center'
