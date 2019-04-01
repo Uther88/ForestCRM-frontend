@@ -66,8 +66,8 @@
 			произвела проверку выданных со склада в подразделения материальных запасов и установила
 			фактическое расходование следующих материалов:
 		</div>
-		<div class="q-mt-sm row">
-			<table cellspacing="0" border="1" class="act-table text-center col">
+		<div class="q-mt-sm full-width flex items-stretch">
+			<table cellspacing="0" border="1" class="act-table text-center">
 				<thead>
 					<tr>
 						<th colspan="2">Материальные запасы</th>
@@ -99,8 +99,8 @@
 						</td>
 						<td></td><td></td>
 					</tr>
-					<template v-if="act.outfit.expenses.length < 10">
-						<tr v-for="i in (10 - act.outfit.expenses.length)">
+					<template v-if="act.outfit.expenses.length < 15">
+						<tr v-for="i in (15 - act.outfit.expenses.length)">
 							<td v-for="i in 7" >&nbsp;</td>
 						</tr>
 					</template>
@@ -116,7 +116,7 @@
 					</tr>
 				</tfoot>
 			</table>
-			<table cellspacing="0" border="1" class="act-table text-center col">
+			<table cellspacing="0" border="1" class="act-table text-center">
 				<thead>
 					<tr>
 						<th rowspan="2">Направление<br/>расхода</th>
@@ -138,9 +138,9 @@
 						<td></td>
 						<td></td>
 					</tr>
-					<template v-if="act.outfit.works.length < 10">
-						<tr v-for="i in (act.outfit.expenses.length - act.outfit.works.length)">
-							<td v-for="i in 3">&nbsp;</td>
+					<template v-if="act.outfit.works.length < 15">
+						<tr v-for="i in (15 - act.outfit.works.length)">
+							<td v-for="x in 3">&nbsp;</td>
 						</tr>
 					</template>
 				</tbody>
@@ -225,10 +225,11 @@
 	  margin-bottom: 0.5cm;
 	  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
 	  width: 29.7cm;
-  	min-height: 21cm; 
+  		min-height: 21cm; 
   
 }
 
+.act-table {width: 50%;}
 @media print {
 	html,body{height:100%;width:100%;margin:0;padding:0;}
    .page {

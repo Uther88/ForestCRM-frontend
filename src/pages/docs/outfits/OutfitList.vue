@@ -28,7 +28,7 @@
     <q-td slot="body-cell-options" slot-scope="props" :props="props">
       <q-btn-dropdown icon="menu" dense split color="primary">
         <q-list separator link>
-          <q-item @click.native="$router.push({name: 'OutfitPrint', params: {id: props.row.id}})" >
+          <q-item :to="'/print/outfit/' + props.row.id" target="_blank">
             <q-item-side icon="print" color="primary" />
             <q-item-main label="Печать" />
           </q-item>

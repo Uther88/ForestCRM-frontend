@@ -19,13 +19,14 @@
     		:pagination="{rowsPerPage: 0}"
     	>
     		<q-td slot="body-cell-options" slot-scope="props" :props="props">
-     	 		<q-btn
+     	 		<router-link :to="'/print/act-spisanya/' + props.row.id" target="_blank" style="text-decoration: none;" >
+                <q-btn
                  icon="print" 
-                 flat 
+                 flat type="a"
                  dense
-                 color="primary" 
-                 @click.native="$router.push({name: 'ActSpisanyaPrint', params: {id: props.row.id}})" 
+                 color="primary"
                 />
+                </router-link>
      	 		<q-btn 
                  icon="zoom_in" 
                  dense
