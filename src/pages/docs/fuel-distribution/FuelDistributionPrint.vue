@@ -33,18 +33,28 @@
 				<table border="1" cellspacing="0" class="full-width">
 					<thead>
 						<tr>
-							<th rowspan="2">Дата</th>
-							<th rowspan="2">№</th>
-							<th rowspan="2">Вид работ</th>
-							<th rowspan="2">счет</th>
-							<th rowspan="2">км</th>
-							<th rowspan="2">тн</th>
-							<th colspan="3">ГСМ</th>
+							<th rowspan="3">Дата</th>
+							<th rowspan="3">№</th>
+							<th rowspan="3">Вид работ</th>
+							<th rowspan="3">счет</th>
+							<th rowspan="3">км</th>
+							<th rowspan="3">тн</th>
+							<th colspan="9">ГСМ</th>
 						</tr>
 						<tr>
-							<th>Норма, литр</th>
-							<th>Факт, литр</th>
+							<th colspan="2">бензин</th>
+							<th colspan="2">масло б.п</th>
+							<th colspan="2">диз. масло</th>
 							<th>Сумма, руб</th>
+						</tr>
+						<tr>
+							<th>Норма, л</th>
+							<th>Факт, л</th>
+							<th>Норма, л</th>
+							<th>Факт, л</th>
+							<th>Норма, л</th>
+							<th>Факт, л</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -56,7 +66,7 @@
 							<td>{{ waybill.event.full_name }}</td>
 							<td></td><td></td><td></td><td></td>
 							<td>{{ waybill.total_fuel }}</td>
-							<td></td>
+							<td></td><td></td><td></td><td></td><t
 						</tr>
 						<tr v-for="outfit in fuel_distribution.outfits" :key="outfit.id">
 							<td>
@@ -65,7 +75,30 @@
 							<td>{{ outfit.id }}</td>
 							<td>{{ outfit.event.full_name }}</td>
 							<td></td><td></td><td></td><td></td>
-							<td>{{ outfit.total_fuel }}</td>
+							<td>
+								{{
+									outfit.expenses.filter(ex => ex.material.name == 'АИ-92')
+									.map(ex => ex.quantity_fact)
+									.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0)
+								}}
+							</td>
+							<td>
+							</td>
+							<td>
+									{{ 
+									outfit.expenses.filter(ex => ex.material.name.match(/^\Wасло+/))
+									.map(ex => ex.quantity_fact)
+									.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0)
+								 }}
+							</td>
+							<td></td>
+							<td>
+								{{ 
+									outfit.expenses.filter(ex => ex.material.name.match(/^\Wиз.*масло/))
+									.map(ex => ex.quantity_fact)
+									.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0)
+								 }}
+							</td>
 							<td></td>
 						</tr>
 						<tr v-for="regform in fuel_distribution.regforms" :key="regform.id">
@@ -76,18 +109,24 @@
 							<td>{{ regform.event.full_name }}</td>
 							<td></td><td></td><td></td><td></td>
 							<td>{{ regform.total_fuel }}</td>
-							<td></td>
+							<td></td><td></td><td></td><td></td><td></td>
 						</tr>
 						<tr v-for="r in emptyRows">
-							<td v-for="i in 9">&nbsp;</td>
+							<td v-for="i in 13">&nbsp;</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr class="text-bold">
 							<td>Итого</td>
 							<td></td><td></td><td></td><td></td><td></td><td></td>
-							<td>{{ fuel_distribution.total_fuel }}</td>
-							<td></td>
+							<td>
+								{{ getTotalFuel }}
+							</td>
+							<td></td><td>
+								{{ getTotalOil }}
+							</td><td></td><td>
+								{{ getTotalDieselOil }}
+							</td><td></td>
 						</tr>
 					</tfoot>
 				</table>
@@ -154,6 +193,35 @@
 					return 18 - rows;
 				} else {
 					return 0;
+				}
+			},
+			getTotalFuel() {
+				if (this.fuel_distribution.kind == 'OF') {
+					var fuel = this.fuel_distribution.outfits.map(o => o.expenses
+						.filter(ex => ex.material.name == 'АИ-92' || ex.material.name == 'ДТ').map(ex => ex.quantity_fact)
+						.reduce((a,b) => (parseFloat(a) + parseFloat(b)).toFixed(2) ,0))
+						.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0);
+					return fuel;
+				} else  {
+					return this.fuel_distribution.total_fuel
+				}
+			},
+			getTotalOil() {
+				if (this.fuel_distribution.kind == "OF") {
+					var oil = this.fuel_distribution.outfits.map(o => o.expenses
+						.filter(ex => ex.material.name.match(/^\Wасло+/)).map(ex => ex.quantity_fact)
+						.reduce((a,b) => (parseFloat(a) + parseFloat(b)).toFixed(2) ,0))
+						.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0);
+						return oil
+				}
+			},
+			getTotalDieselOil(){
+				if (this.fuel_distribution.kind == "OF") {
+					var oil = this.fuel_distribution.outfits.map(o => o.expenses
+						.filter(ex => ex.material.name.match(/^\Wиз.*масло/)).map(ex => ex.quantity_fact)
+						.reduce((a,b) => (parseFloat(a) + parseFloat(b)).toFixed(2) ,0))
+						.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0);
+						return oil
 				}
 			},
 		},

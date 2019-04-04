@@ -3,14 +3,14 @@
 		<div class="row justify-between group bg-indigo glossy">
 			<div class="col-auto group">
 				<q-btn
-		            icon="add"
-		            color="positive"
-		            type="button"
-		            @click.native="$router.push({name: 'FuelDistributionNew'})"
-		            glossy
-		            label="Создать"
-		          />
-		          <searching-panel :options="options" :search="getFuelDistributions" />
+          icon="add"
+          color="positive"
+          type="button"
+          @click.native="$router.push({name: 'FuelDistributionNew'})"
+          glossy
+          label="Создать"
+        />
+        <searching-panel :options="options" :search="getFuelDistributions" />
 			</div>
     	</div>
     	<q-table 
@@ -20,7 +20,9 @@
     		dense
     	>
     		<q-td slot="body-cell-options" slot-scope="props" :props="props">
-     	 		<q-btn icon="print" dense flat color="primary" @click.native="$router.push({name: 'FuelDistributionPrint', params: {id: props.row.id}})"></q-btn>
+     	 		<router-link target="_blank" :to="'/print/fuel-distribution/' + props.row.id" >
+     	 			<q-btn icon="print" dense flat color="primary" />
+     	 		</router-link>
      	 		<q-btn icon="edit" dense flat color="primary" @click.native="viewFuelDistribution(props.row)" />
 			</q-td>
    		</q-table>
