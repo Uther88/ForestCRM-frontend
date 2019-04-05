@@ -79,7 +79,7 @@
 								{{
 									outfit.expenses.filter(ex => ex.material.name == 'АИ-92')
 									.map(ex => ex.quantity_fact)
-									.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0)
+									.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0) || null
 								}}
 							</td>
 							<td>
@@ -88,7 +88,7 @@
 									{{ 
 									outfit.expenses.filter(ex => ex.material.name.match(/^\Wасло+/))
 									.map(ex => ex.quantity_fact)
-									.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0)
+									.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0) || null
 								 }}
 							</td>
 							<td></td>
@@ -96,7 +96,7 @@
 								{{ 
 									outfit.expenses.filter(ex => ex.material.name.match(/^\Wиз.*масло/))
 									.map(ex => ex.quantity_fact)
-									.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0)
+									.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0) || null
 								 }}
 							</td>
 							<td></td>
@@ -199,9 +199,9 @@
 				if (this.fuel_distribution.kind == 'OF') {
 					var fuel = this.fuel_distribution.outfits.map(o => o.expenses
 						.filter(ex => ex.material.name == 'АИ-92' || ex.material.name == 'ДТ').map(ex => ex.quantity_fact)
-						.reduce((a,b) => (parseFloat(a) + parseFloat(b)).toFixed(2) ,0))
-						.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0);
-					return fuel;
+						.reduce((a,b) => parseFloat(a) + parseFloat(b) ,0))
+						.reduce((a, b) => parseFloat(a) + parseFloat(b), 0).toFixed(2);
+					return fuel || null;
 				} else  {
 					return this.fuel_distribution.total_fuel
 				}
@@ -210,18 +210,18 @@
 				if (this.fuel_distribution.kind == "OF") {
 					var oil = this.fuel_distribution.outfits.map(o => o.expenses
 						.filter(ex => ex.material.name.match(/^\Wасло+/)).map(ex => ex.quantity_fact)
-						.reduce((a,b) => (parseFloat(a) + parseFloat(b)).toFixed(2) ,0))
-						.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0);
-						return oil
+						.reduce((a,b) => parseFloat(a) + parseFloat(b) ,0))
+						.reduce((a, b) => parseFloat(a) + parseFloat(b), 0).toFixed(2);
+						return oil || null
 				}
 			},
 			getTotalDieselOil(){
 				if (this.fuel_distribution.kind == "OF") {
 					var oil = this.fuel_distribution.outfits.map(o => o.expenses
 						.filter(ex => ex.material.name.match(/^\Wиз.*масло/)).map(ex => ex.quantity_fact)
-						.reduce((a,b) => (parseFloat(a) + parseFloat(b)).toFixed(2) ,0))
-						.reduce((a, b) => (parseFloat(a) + parseFloat(b)).toFixed(2), 0);
-						return oil
+						.reduce((a,b) => parseFloat(a) + parseFloat(b), 0))
+						.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+						return oil || null
 				}
 			},
 		},
