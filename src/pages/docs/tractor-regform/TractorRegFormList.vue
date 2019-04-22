@@ -26,13 +26,13 @@
 		>
 	    <q-td slot="body-cell-options" slot-scope="props" :props="props">
 	    	<q-btn-dropdown icon="menu" color="primary" split dense>
-	    		<q-list link separator>
-	    			<q-item @click.native="$router.push({name: 'RegFormPrint', params: {id: props.row.id}})" >
-	    				<q-item-side icon="print" />
-	    				<q-item-main label="Печать" />
-	    			</q-item>
+	    		<q-list link separator>	
+		    			<q-item :to="'/print/regform/' + props.row.id" target="_blank">
+		    				<q-item-side icon="print" class="text-primary" />
+		    				<q-item-main label="Печать" />
+		    			</q-item>  			
 	    			<q-item v-if="$user.is_staff" @click.native="deleteRegform(props.row)" >
-	    				<q-item-side icon="delete" />
+	    				<q-item-side icon="delete" class="text-negative" />
 	    				<q-item-main label="Удалить" />
 	    			</q-item>
 	    		</q-list>

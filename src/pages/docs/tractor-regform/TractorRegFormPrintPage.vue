@@ -102,7 +102,7 @@
 						<tr>
 							<td rowspan="3" width="4%"><div class="vert">Числа месяца</div></td>
 							<td rowspan="3" width="3%">№<br/>поля</td>
-							<td rowspan="3">Наименование выполненных работ</td>
+							<td rowspan="3">Наименование<br/>выполненных<br/>работ</td>
 							<td colspan="3">Адресная часть, площадь</td>
 							<td colspan="2">Справочник</td>
 							<td rowspan="3" width="4%" valign="top" class="q-pt-md">
@@ -120,7 +120,7 @@
 							<td rowspan="2" width="4%"><div class="vert">квартал</div></td>
 							<td rowspan="2" width="4%"><div class="vert">выдел</div></td>
 							<td rowspan="2" width="4%"><div class="vert">площадь,<br/>расстояние</div></td>
-							<td rowspan="2" width="4%"><div class="vert">Наименование</div></td>
+							<td rowspan="2" style="max-width: 10%;"><div class="vert">Наименование</div></td>
 							<td rowspan="2" width="4%"><div class="vert">страница</div></td>
 							<td rowspan="2" width="4%"><div class="vert">в натуре</div></td>
 							<td rowspan="2" width="4%"><div class="vert">сменных норм</div></td>
@@ -180,6 +180,7 @@
 				</table>
 			</div>
 		</div>
+		<br class="print-hide" />
 		<div class="page">
 			<div class="row justify-end small">Подготовлено с использованием системы &nbsp;<b>КонсультантПлюс</b></div>
 			<div class="row justify-end q-pt-md">Обратная сторона формы № 411-АПК</div>
@@ -189,7 +190,7 @@
 						<tr>
 							<td rowspan="3" width="4%"><div class="vert">Числа месяца</div></td>
 							<td rowspan="3" width="3%">№<br/>поля</td>
-							<td rowspan="3">Наименование выполненных работ</td>
+							<td rowspan="3">Наименование<br/>выполненных<br/>работ</td>
 							<td colspan="3">Адресная часть, площадь</td>
 							<td colspan="2">Справочник</td>
 							<td rowspan="3" width="4%" valign="top" class="q-pt-md">
@@ -249,7 +250,7 @@
 						</tr>
 						<template v-if="regform.works.length < 18" >
 							<tr v-for="row in (18 - regform.works.length)">
-								<td v-for="i in 22">&nbsp;</td>
+								<td v-for="i in 23">&nbsp;</td>
 							</tr>
 						</template>
 					</tbody>
@@ -372,8 +373,8 @@
 	  padding: 1cm;
 	  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
 	  width: 297mm; 
-	  height: 210mm;
-	  margin-bottom: -1px;
+	  max-height: 210mm;
+      min-height: 205mm;
 }
 
   .small {font-size: 10px;}
@@ -408,6 +409,12 @@
 <style media="print" scoped>
   @page {
   	size: A4 landscape;
-  	margin: 0;
+  	margin: 0.5cm;
+  }
+  @media print{
+    #reg-form .page{
+      box-shadow: none;
+      padding: 0.5cm;
+    }
   }
 </style>
